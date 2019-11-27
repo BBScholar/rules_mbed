@@ -16,6 +16,8 @@
 
 load("@com_github_ARMmbed_mbed-os//:rules.bzl", "mbed_binary")
 load("@com_github_ARMmbed_mbed-os_g474//:rules.bzl", mbed_g4_binary="mbed_binary")
+load("@com_github_ARMmbed_mbed-os_g474//:rules.bzl", mbed_f1_binary="mbed_binary")
+
 
 cc_library(
     name = "common",
@@ -31,6 +33,12 @@ mbed_binary(
 
 mbed_g4_binary(
     name = "g4_example1",
+    srcs = ["example1.cc"],
+    deps = [":common"],
+)
+
+mbed_f1_binary(
+    name = "f1_example1",
     srcs = ["example1.cc"],
     deps = [":common"],
 )

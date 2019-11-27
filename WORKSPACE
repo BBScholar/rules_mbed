@@ -34,3 +34,13 @@ mbed_repository(
         "MBED_CONF_TARGET_CONSOLE_UART": "1",
     },
 )
+
+mbed_repository(
+    name = "com_github_ARMmbed_mbed-os_f1",
+    target = "targets/TARGET_STM/TARGET_STM32F1",
+    config = {
+        "MBED_CONF_RTOS_PRESENT": "0",
+        "DEVICE_STDIO_MESSAGES": "0",
+        "MBED_CONF_TARGET_CONSOLE_UART": "1",
+    },
+)

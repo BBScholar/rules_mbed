@@ -25,6 +25,7 @@ cc_toolchain_suite(
         "stm32g4|compiler": "cc_toolchain_stm32g4",
         "stm32f4|compiler": "cc_toolchain_stm32f4",
         "stm32f0|compiler": "cc_toolchain_stm32f0",
+        "stm32f1|compiler": "cc_toolchain_stm32f1"
     },
 )
 
@@ -96,6 +97,32 @@ cc_toolchain(
     toolchain_config = ":clang-k8",
     dynamic_runtime_lib = "@org_llvm_clang//:runtime_libs",
     static_runtime_lib = "@org_llvm_clang//:static_libs",
+)
+
+cc_toolchain_config_stm32(
+    name = "gcc-stm32f1",
+    cpu = "stm32f1",
+    toolchain_identifier = "gcc-stm32f1",
+    host_compiler_path = "wrapper/arm-none-eabi-g++",
+    builtin_include_directories = [
+        "external/com_arm_developer_gcc/arm-none-eabi/include/",
+        "external/com_arm_developer_gcc/arm-none-eabi/include/sys/",
+    ],
+)
+
+cc_toolchain(
+    name = "cc_toolchain_stm32f1",
+    all_files = ":arm_everything",
+    compiler_files = ":arm_everything",
+    dwp_files = ":empty",
+    linker_files = ":arm_everything",
+    ar_files = ":arm_everything",
+    as_files = ":arm_everything",
+    objcopy_files = ":empty",
+    strip_files = ":empty",
+    supports_param_files = 0,
+    toolchain_identifier = "gcc-stm32f1",
+    toolchain_config = ":gcc-stm32f1",
 )
 
 cc_toolchain_config_stm32(

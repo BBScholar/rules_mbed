@@ -141,6 +141,15 @@ def _get_target_defines(repository_ctx, target_path):
                     "TARGET_CORTEX_M",
                     "TARGET_CORTEX",
                 ]
+            elif core == "Cortex-M1":
+                this_stack[0] += [
+                    "ARM_MATH_CM1",
+                    "__CORTEX_M1",
+                    "TARGET_LIKE_CORTEX_M1",
+                    "TARGET_M1",
+                    "TARGET_CORTEX_M",
+                    "TARGET_CORTEX",
+                ]
             elif core != None:
                 fail("Unknown core:" + core)
 
@@ -253,9 +262,15 @@ def _impl(repository_ctx):
                 "rtos/TARGET_CORTEX/rtx5/RTX/Source/TOOLCHAIN_GCC/TARGET_RTOS_M4_M7/*.S",
             ]
         elif "TARGET_M0" in defines:
+            # pass
             src_globs += [
                 "rtos/TARGET_CORTEX/rtx5/RTX/Source/TOOLCHAIN_GCC/TARGET_RTOS_M0/*.S",
             ]
+        elif "TARGET_M1" in defines:
+            src_globs += [
+                "rtos/TARGET_CORTEX/rtx5/RTX/Source/TOOLCHAIN_GCC/TARGET_RTOS_M1/*.S",
+            ]
+            pass
         else:
             fail("Unknown core")
 

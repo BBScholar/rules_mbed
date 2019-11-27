@@ -647,6 +647,19 @@ def _stm32_impl(ctx):
         ],
     )
 
+    stm32f1_feature = feature(
+        name = "stm32f1",
+        flag_sets = [
+            flag_set(
+                actions = ALL_COMPILE_ACTIONS + ALL_LINK_ACTIONS,
+                flag_groups = [flag_group(flags = [
+                    "-mcpu=cortex-m1",
+                ])],
+            ),
+        ],
+        implies = ["stm32"],
+    )
+
     stm32f0_feature = feature(
         name = "stm32f0",
         flag_sets = [
@@ -698,7 +711,8 @@ def _stm32_impl(ctx):
             "no-canonical-prefixes",
         ] + (["stm32f0"] if ctx.attr.cpu == "stm32f0" else []) + (
              ["stm32f4"] if ctx.attr.cpu == "stm32f4" else []) + (
-             ["stm32g4"] if ctx.attr.cpu == "stm32g4" else [])
+             ["stm32g4"] if ctx.attr.cpu == "stm32g4" else []) + (
+             ["stm32f1"] if ctx.attr.cpu == "stm32f1" else [])
     )
 
     features = common.values() + [
@@ -709,6 +723,7 @@ def _stm32_impl(ctx):
         stm32f0_feature,
         stm32f4_feature,
         stm32g4_feature,
+        stm32f1_feature
     ]
 
     cxx_builtin_include_directories = ctx.attr.builtin_include_directories
@@ -762,6 +777,7 @@ cc_toolchain_config_stm32 = rule(
             "stm32f0",
             "stm32f4",
             "stm32g4",
+            "stm32f1"
         ]),
         "builtin_include_directories": attr.string_list(),
         "extra_no_canonical_prefixes_flags": attr.string_list(),
